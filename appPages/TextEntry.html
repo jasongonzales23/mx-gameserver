@@ -1,0 +1,69 @@
+<html>
+<h1>Location: At the Beach</h1>
+
+<p>Find the kayaks by the beach.  Pick one person to paddle out to the buoy.  On it is a secret
+code.  Enter that code here <input class="answer" id="1" type="text"/> Be sure to spell it exactly as you see it!</p>
+
+<p>(The text entry must be checked to see if it matches the secret code, in this case "poodle". 
+If it matches the team gets 15 points, otherwise zero points.
+Leading and trailing spaces should be stripped, and all letters should be converted to
+lower case before comparison.  No matter what this challenge should be marked as done.  Both the 
+answer and the point value need to be saved for later.)</p>
+<button id="save">Save</button>
+</html>
+<script src="jquery-1.6.2.min.js"></script>
+<script src="constants.js"></script>
+<script>
+$(document).ready(function(){
+    $('#save').click(function(){
+        var val = $('.answer').val();
+        val = $.trim(val).toLowerCase();
+        var qIndex = parseInt($('.answer').attr('id')) -1;
+        var Qs = MX.constants.numberOfQuestions;
+        var correctAnswer = "poodle";
+        var answersArr = [];
+        var scoresArr = [];
+        var score;
+        //score it
+        if(val===correctAnswer){
+            score=15;
+        }
+        else{
+            score=0;
+        }
+        //check if any answers
+        var answers  = localStorage.getItem('answers');
+        var scores = localStorage.getItem('scores');
+        //if not make placeholders for all the questions (still nee do test this)
+        if(!answers){
+            for(i=0; i<Qs; i++){
+                answersArr.push(' ');
+            }
+           localStorage.setItem('answers', answersArr);
+        }
+        
+        if(!scores){
+            for(i=0; i<Qs; i++){
+                scoresArr.push(' ');
+            }
+           localStorage.setItem('scores', scoresArr);
+        }
+        
+        //now get the answers
+        var answerStore = localStorage.getItem('answers');
+        //turn the answers into an array
+        answerStore = answerStore.split(',');
+        //set the question answered to the correct value
+        answerStore[qIndex] = val;
+        //store the answers array
+        localStorage.setItem('answers', answerStore);
+        
+        
+        var scoreStore = localStorage.getItem('scores');
+        scoreStore = scoreStore.split(',');
+        scoreStore[qIndex] = score;
+        localStorage.setItem('scores', scoreStore);
+
+    });
+});
+</script>

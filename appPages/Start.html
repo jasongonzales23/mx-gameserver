@@ -1,0 +1,106 @@
+<html>
+<h1>Team Setup Screen</h1>
+<p>(we can add emails later)<p>
+
+
+    <div class="playerInfo">
+        <p>
+        <label>Enter Team Member One (full name)</label>
+            <input type="text" class="player"/>
+        </p>
+        <p>
+        <label>Email address</label>
+            <input type="text" class="email"/>
+        </p>
+    </div>
+    <div class="playerInfo">
+        <p>
+        <label>Enter Team Member One (full name)</label>
+            <input type="text" class="player"/>
+        </p>
+        <p>
+        <label>Email address</label>
+            <input type="text" class="email"/>
+        </p>
+    </div>
+    <div class="playerInfo">
+        <p>
+        <label>Enter Team Member One (full name)</label>
+            <input type="text" class="player"/>
+        </p>
+        <p>
+        <label>Email address</label>
+            <input type="text" class="email"/>
+        </p>
+    </div>
+    <div class="playerInfo">
+        <p>
+        <label>Enter Team Member One (full name)</label>
+            <input type="text" class="player"/>
+        </p>
+        <p>
+        <label>Email address</label>
+            <input type="text" class="email"/>
+        </p>
+    </div>
+    <div class="playerInfo">
+        <p>
+        <label>Enter Team Member One (full name)</label>
+            <input type="text" class="player"/>
+        </p>
+        <p>
+        <label>Email address</label>
+            <input type="text" class="email"/>
+        </p>
+    </div>
+<h2>and</h2>
+
+<label>Enter Team Name</label>
+<input <input type="text" id="teamName"/>
+
+<button type="button" id="start">Start Game</button>
+
+<script src="jquery-1.6.2.min.js"></script>
+<script>
+$(document).ready(function(){
+//for now erase everything in localStorage
+localStorage.clear(); 
+
+var teamObj = teamObj || {};
+teamObj.players = [];
+teamObj.emails = [];
+
+$('#start').click(function (){
+    //grab the val of each input, stuff it in an object
+    var players = $('.player');
+    //var emails = document.querySelectorAll('.email');
+    
+    $.each(players, function(){
+        var player = this.value;
+        var email = $(this).parent().next().children('.email').val();
+        if (player ===""){return}
+        teamObj.players.push(player);
+        teamObj.emails.push(email);
+    });
+
+    //save the team name
+    var teamName = document.querySelector('#teamName');
+    teamObj.teamName = teamName.value;
+    
+    teamID = teamObj.teamName + "_" + Math.random() * Math.pow(10, 17) + Math.random() * Math.pow(10, 17);// + Math.random() * Math.pow(10, 17) + Math.random() * Math.pow(10, 17);
+    
+    teamObj.teamID = teamID;
+    
+    //pull it out of the object, I know it sounds absurd but we might need this
+    for(var prop in teamObj) {
+        var val = teamObj[prop];
+        localStorage.setItem(prop, val);
+    }
+
+
+    });
+    
+});
+
+</script>
+</html>

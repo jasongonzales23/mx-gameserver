@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block page_title %}Register{% endblock %}
+{% block body_class %}user-account{% endblock %}
+{% block body_id %}register{% endblock %}
+{% block base_content%}
+<div class="main-content">
+<form method="post" action=".">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+  <input type="submit" value="{% trans 'Submit' %}" />
+</form>
+</div>
+{% endblock %}

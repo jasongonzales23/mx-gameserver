@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block body_class %}gameResults{% endblock %}{% block body_id %}{% endblock %}"
+{% block base_content%}
+<div id="navigation">
+    <div class="row">
+	<nav>
+	    <ul class="breadcrumb">
+		<li><a href="/">Home</a></li>
+		<li><a href="/game-results/">Game Results</a></li>
+	    </ul>
+	</nav>
+    </div>
+</div>
+<div class="row">
+    <div class="gameOverview">
+	<h2>Game Results</h2>
+	<table>
+	    <tbody>
+		<tr>
+		    <th>First Check In</th>
+		    <td>{{ team.teamID }}</td>
+		</tr>
+		<tr>
+		    <th>Last Check in</th>
+		    <td>{{ team.checkIn }}</td>
+		</tr>
+		<tr>
+		    <th>Highest Scoring Team</th>
+		    <td>{{ team.score }}</td>
+		</tr>
+		<tr>
+		    <th>Lowest Scoring Team</th>
+		    <td>{{ team.score }}</td>
+		</tr>
+		<tr>
+		    <th>Number of Teams</th>
+		    <td>coming soon</td>
+		</tr><tr>
+		    <th>Number of Images</th>
+		    <td>coming soon</td>
+		</tr>
+	    </tbody>
+	</table>
+    </div>
+    <div class="participatingTeams">
+	<h2>Participating Teams</h2>
+	<table>
+	    <tbody>
+		<thead>
+		    <th>Team</th>
+		    <th>Points</th>
+		    <th></th>
+		</thead>
+		{% for team in team_list%}
+		<tr>
+		    <td>{{ team.name }}</td>
+		    <td>{{ team.score }}</td>
+		    <td><a href="{{ team.slug }}">More info</a></td>
+		</tr>
+		{% endfor %}
+	    </tbody>
+	</table>
+    </div>
+</div>
+<a href="/admin/">link to admin</a>
+
+
+{% endblock %}

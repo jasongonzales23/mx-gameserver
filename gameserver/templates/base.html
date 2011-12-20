@@ -1,0 +1,53 @@
+<!doctype html>
+  <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block page_title %}Mobile Expeditions{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{% endblock %}" />
+    <meta name="author" content="{% block meta_author %}{% endblock %}" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css?v=2" />
+    <!--<script src="{{ STATIC_URL }}js/libs/modernizr-2.0.6.min.js"></script>-->
+  </head>
+  <body class="{% block body_class %}{% endblock %}" id="{% block body_id %}{% endblock %}">
+    <div id="container">
+        <header>
+	    <div class="row">
+		<h1>MX Gameserver</h1>
+	    </div>
+        </header>
+        
+        <div id="main" role="main">
+           {% block base_content%}Base Content{% endblock %}
+          
+        </div>
+      
+        
+        <footer>
+        </footer>
+    </div> <!-- end of #container -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+  
+  
+    <!-- scripts concatenated and minified via ant build script-->
+    <script src="{{ STATIC_URL }}js/plugins.js"></script>
+    <script src="{{ STATIC_URL }}js/script.js"></script>
+    <!-- end scripts-->  
+  
+    <!--[if lt IE 7 ]>
+      <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+      <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+    <![endif]-->
+      
+  </body>
+</html>
+
+
+

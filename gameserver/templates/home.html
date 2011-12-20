@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block body_class %}home{% endblock %}{% block body_id %}{% endblock %}"
+{% block base_content%}
+<div id="navigation">
+    <div class="row">
+	<nav>
+	    <ul class="breadcrumb">
+		<li><a href="/">Home</a></li>
+	    </ul>
+	</nav>
+    </div>
+</div>
+<div class="homeContainer">
+    <div class="bigBtn viewGame">
+	<a href="/game-results/">View Game Results</a>
+    </div>
+    <div class="bigBtn Admin">
+	<a href="/admin/">Admin</a>
+    </div>
+</div>
+{% endblock %}

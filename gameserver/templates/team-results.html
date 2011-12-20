@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block body_class %}teamResults{% endblock %}{% block body_id %}{% endblock %}"
+{% block base_content%}
+<div id="navigation">
+    <div class="row">
+	<nav>
+	    <ul class="breadcrumb">
+		<li><a href="/">Home</a></li>
+		<li><a href="/game-results/">Game Results</a></li>
+		<li><a href="#">Team Results</a></li>
+	    </ul>
+	</nav>
+    </div>
+</div>
+<div class="row">
+    <div class="teamInfo">
+	<h2>Team {{ team.name }}</h2>
+	<table>
+	    <tbody>
+		<tr>
+		    <th>Team ID</th>
+		    <td>{{ team.teamID }}</td>
+		</tr>
+		<tr>
+		    <th>Check in</th>
+		    <td>{{ team.checkIn }}</td>
+		</tr>
+		<tr>
+		    <th>Score</th>
+		    <td>{{ team.score }}</td>
+		</tr>
+	    </tbody>
+	</table>
+
+	<h2>Team Members</h2>
+	<ul>
+	    {% for player in player_list %}
+	    <li> {{ player.name }}</li>
+	    <li class="email"><a href="mailto:{{ player.email }}">{{ player.email }}</a></li>
+	    {% endfor %}
+	</ul>
+    </div>
+    <div class="answers">
+	<h2>Answers</h2>
+	<table>
+	    <tbody>
+		<thead>
+		    <th>Question</th>
+		    <th>Answer Given</th>
+		    <th>Points</th>
+		</thead>
+		{% for answer in answer_list%}
+		<tr>
+		    <td>{{ answer.question }}</td>
+		    <td>{{ answer.answerGiven }}</td>
+		    <td>{{ answer.pointsAwarded }}</td>
+		</tr>
+	    {% endfor %}
+	    </tbody>
+	</table>
+    </div>
+    
+</div>
+<a href="#">link to admin</a>
+{% endblock %}
