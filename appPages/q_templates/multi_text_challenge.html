@@ -16,11 +16,10 @@
     <div id="main" role="main" class="clearfix">
         <!-- main body text goes here -->
         <p class="challengeText">Challenge text, images, videos, audio, whatever goes here</p>
-        <p>
+        <p class="inputs">
             <!-- label is handy but optional -->
-            <label for="textAnswer">Label for input</label>
-            <!-- edit the placeholder here -->
-            <input type="text" name="textAnswer" id="textAnswer" placeholder="placeholder text in input">
+            <label for="textAnswer">Label for inputs</label>
+            <!-- inputs will be added dynamically -->
         </p>
         <!--You should really really edit the text here-->
         <button class="save">This is a button to submit the answer</button>
@@ -31,23 +30,30 @@
     <script src="mxlib/js/constants.js"></script>
     <script src="mxlib/js/mx-lib.js"></script>
     <script>
-        MX.textChallenge({
+        MX.multiTextChallenge({
             questionNumber: 4, //this is for IDing the the question 
-            score: '10', //number of points for correct answer, should NOT be an integer
-            correctAnswer: 'poodle',
+            score: 10, //number of points for EACH correct answer, SHOULD be an integer
+            correctAnswers: [
+                'poodle',
+                'labrador',
+                'yorkie'
+            ],
             closeAnswers:[
-            // put as many as you want here
+            // put as many as you want here in any order
             // must be in quotes, separated by commas
             //last one in list must not be followed by a comma
                 'pewdle',
-                'poodul',
-                'poodol'
+                'labrodor',
+                'yorkshire terrier',
+                'labbador'
             ],
+            placeholder: 'Put your answer here', //placeholder text that appears in all inputs, leave empty if you want nothing
+            alertMessage: 'You put the same answer more than once. Sorry, you can\'t do that!', //prevent scoring all points with only one correct answer change this messge to whatever you want though
             confirmation: true, //put false if you don't want this 
             confirmationPrompt: 'Are you sure?' //this needs to be a short message
         });
         
-        //if you don't need a hidden element delete or comment out the code below
+        //if you don't need a hidden element delete or comment out all the code below
         MX.hiddenElements({
             pathToHiddenElement: 'mxlib/img/bp6.jpg', // put a string in quotes with the path to the image                 
             buttonText: 'show me something' //put a string in quotes

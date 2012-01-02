@@ -15,6 +15,10 @@ MX.qrChallenge = function (options){
             score = options.codeValuePairs[key].value;
             answer = options.codeValuePairs[key].qrCode;
         }
+        else{
+            MX.alertBox({prompt:options.alertMessage});
+            return;
+        }
     }
     //save the score
     MX.storeAnswer(options.questionNumber, answer, score);
@@ -60,6 +64,80 @@ MX.textChallenge = function (options){
         }
     });
 }
+
+MX.multiTextChallenge = function(options){
+    var correctAnswers = options.correctAnswers;
+    // build the inputs
+    for(key in correctAnswers){
+        $('.inputs').append('<input type ="text" class="textAnswer" id="'+ key +'" placeholder="' + options.placeholder + '"/>');
+    }
+    
+    $('body').delegate('.save', 'click', function(){
+        
+        var answers = [];
+        
+        var processAnswer = function(){
+            possibleScore = options.score,
+            score = 0,
+            closeAnswers = options.closeAnswers;
+            
+            $.each(answers, function(index, val){
+                //console.log(index, val)
+                for(key in correctAnswers){
+                    if(val=== correctAnswers[key]){
+                        score += possibleScore;
+                    }
+                }
+                for (key in closeAnswers){
+                    if(val === closeAnswers[key]){
+                        score += possibleScore;
+                    }
+                }
+            });
+            //convert score to a string before storing
+            score = score.toString();
+            console.log(score);
+            answers = answers.join('/');
+            MX.storeAnswer(options.questionNumber, answers, score);
+        
+        }
+        
+        //check for duplicates
+        $('.textAnswer').each(function(index){
+            answers.push($.trim($(this).val()));
+            console.log(answers);
+        });
+        var sorted_arr = answers.sort();  
+        var results = [];
+        for (var i = 0; i < answers.length - 1; i++) {
+            if (sorted_arr[i + 1] == sorted_arr[i]) {
+                results.push(sorted_arr[i]);
+            }
+        }
+        
+        if(results.length > 0){
+            MX.alertBox({prompt:options.alertMessage});
+            return;
+        }
+        else{
+            if(options.confirmation){
+                MX.dialog({
+                    prompt:options.confirmationPrompt,
+                    cancelCallback: function(){
+                        return;
+                    },
+                    confirmCallback: function(){
+                        processAnswer(options);
+                    }
+                });
+                
+            }
+            else{
+                processAnswer(options);
+            }
+        }
+    });
+};
 
 MX.numberChallenge = function(options){
     var $input = $('#numberAnswer');
@@ -107,6 +185,52 @@ MX.numberChallenge = function(options){
     });
 };
 
+MX.visualMultiChallenge = function(options){
+    var images,
+    path = options.pathToImages,
+    correctAnswer = path + options.correctAnswer,
+    prompt = options.confirmationPrompt,
+    answer, name;
+    
+    var processAnswer = function(){
+        possibleScore = options.score,
+        score = 0;
+        
+        if(answer===correctAnswer){
+            score = possibleScore;
+            
+        }
+        answer = name;
+        MX.storeAnswer(options.questionNumber, answer, score);
+    };
+    
+    
+    $.each(options.choices, function(index, val){
+        console.log(index, val)
+        $('.choices').append('<img src="' + path + val.image + '" + alt="'+ val.name +'"/>');
+    });
+    
+    $('.choices').delegate('img', 'click', function(e){
+        var $choice = $(e.target);
+        $choice.addClass('selected').siblings().addClass('deselected');
+        
+        MX.confirm({
+            prompt:prompt,
+            element: '#msg',
+            cancelCallback: function(){
+                $choice.removeClass('selected').siblings().removeClass('deselected');
+            },
+            confirmCallback: function(){
+                answer = $choice.attr('src');
+                name = $choice.attr('alt');
+                $choice.removeClass('selected').siblings().removeClass('deselected');
+                processAnswer(options);
+            }
+        });
+    });
+}
+
+
 MX.printAnswer = function(message, answer, score, showAnswer, showScore){
     $('#results').remove();
     $('#scanner').before('<p id="results">' + message + '</p>');
@@ -128,7 +252,6 @@ MX.hiddenElements = function(options){
         $('#hiddenElement').removeClass('reveal');
     });
     
-    console.log(options);
     
     if(options){
         var img = options.pathToHiddenElement,
@@ -229,6 +352,24 @@ MX.storeAnswer = function(questionNumber, answer, score){
 }
 
 
+MX.confirm = function (options) {
+    $('body').append('<div id="lightBlanket"></div>');//.hide().fadeIn(300);
+    $('<form id="confirmation" class="clearfix" action=""><label for="code-input">' + options.prompt + '</label><a href="#" id="cancel">No</a><a href="#" id="affirm">Yes</a></form>').appendTo(document.body).fadeIn();
+
+    $('#confirmation').delegate('#cancel', 'click', function(e) {
+        e.preventDefault();
+        $('#confirmation').fadeOut().remove();
+        $('#lightBlanket').fadeOut().remove();
+        options.cancelCallback();
+    });
+
+    $('#confirmation').delegate('#affirm', 'click', function(e) {
+        e.preventDefault();
+        $('#confirmation').fadeOut().remove();
+        $('#lightBlanket').fadeOut().remove();
+        options.confirmCallback();
+    });
+}
 
 MX.dialog = function (options) {
     $('body').append('<div id="blanket"></div>').hide().fadeIn(300);
