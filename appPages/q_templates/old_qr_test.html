@@ -1,0 +1,98 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Checkpoint Charlie</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- CSS concatenated and minified via ant build script-->
+  <link rel="stylesheet" href="style.css">
+  <!-- end CSS-->
+
+  <style>
+  .center{
+	margin: auto;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	}
+  .centertop{
+	margin: auto;
+	position: absolute;
+	top: 1px;
+	bottom: 300px;
+	left: 0px;
+	right: 0px;
+	}
+  </style>
+</head>
+
+<body id="pointCharlie" class="challenges">
+
+  <div id="container">
+    <header>
+        <h1>Checkpoint Charlie</h1>
+    </header>
+    <div id="main" role="main">
+		<p>There is an item or word that can be combined,<br>
+		With each of the words you hear, a new word can be defined.<br><br>
+        <audio controls="controls" loop class="centertop">
+  				<source src="Charlie.mp3" type="audio/mp3" />
+  				Your browser does not support the audio element.
+		</audio>
+		
+		<br>A couple of them are sitting close to this point on the map,<br>
+		Find the right one and an answer you'll unwrap.<br>
+                <a href="file://Venue/Assets/cashexcellence-vwr-2012.pdf"> Our PDF Test </a><br>
+		Einstein won't help you Ð just put on your thinking cap.<br>  
+		<br>
+		Question: What is in hand?<a href="mx-qrcode://?callback=showQRResult">Test QR Code Reader</a>
+               <!-- <button id="scan"></button>-->
+        <br>
+		</p>
+        <div id="scanner"></div>
+        <div id="results"></div>
+        <div class="inputs">
+            <input class="answer" type="text" placeholder="Enter Answer" autocomplete="off" maxlength="15"/>
+		    <a href="loadX:xpedition=Main&xpoint=Complete" class="cupid-green submit">Submit</a>
+        </div>
+    </div>
+    <div id="doneScreen">
+        <p>This challenge has been completed. Please select the "Mark Complete" button below and then return to the map by hitting "Done" in the upper-left corner. When you have completed all the challenges, select the finish challenge.</p>
+        <br>
+        <a class="markComplete" href="setCurrentPointCompStatus:1"><img src="markComplete.png" class="center"></a><br>
+    </div>
+  	<img src="logosfade.gif" style="position:absolute; float:right; right:0px; bottom:0px; z-index:2;">
+    <footer>
+
+    </footer>
+  </div> <!--! end of #container -->
+
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>-->
+  <script src="jquery-1.6.2.min.js"></script>
+    <script type="text/javascript">
+       // $('#scan').append('<a href="mx-qrcode://?callback=showQRResult">Test QR Code Reader</a>');
+        
+        function showQRResult(qrCode) {
+            document.getElementById("results").innerHTML = "Hello from JS/ObjC Bridge. Received value: " + qrCode;
+            return 42;
+        }
+     
+    $(document).ready(function(){
+        $('#scanner').append('<a href="mx-qrcode://?callback=showQRResult">Test QR Code Reader</a>');
+    });
+  </script>   
+  <!-- end scripts-->
+
+</body>
+</html>

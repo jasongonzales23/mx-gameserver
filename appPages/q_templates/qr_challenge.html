@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>QR Code Challenge</title>
+    <link rel="stylesheet" href="mxlib/css/qt-style.css"/> <!-- change this later -->
+</head>
+<body id="" class="challenge">
+
+    <div id="container">
+        <header>
+            <h1>Should only be one H1 on a page.</h1>
+        </header>
+        <div id="main" role="main" class="clearfix">
+            <p class="challengeText">Challenge text, images, videos, audio, whatever goes here</p>
+            <div id="scanner"><a href="mx-qrcode://?callback=qrChallengeWrapper">Scan QR Code</a></div>
+            <!--<div onclick="qrChallengeWrapper('another')">test this</div>--> <!--for testing remove-->
+        </div>
+    </div>
+    <div id="hiddenElement"></div>
+    <script src="mxlib/js/jquery.1.7.min.js"></script>
+    <script src="mxlib/js/constants.js"></script>
+    <script src="mxlib/js/mx-lib.js"></script>
+    <script>
+        function qrChallengeWrapper(scannedCode){
+            MX.qrChallenge({
+                code: scannedCode, //don't touch this... EVER
+                questionNumber: 1, //this is to index the answers and scores, I would just number these the same way you number the Xpoints or something
+                successMsg: 'Congrats! You scanned', //this message will appear after a successful scan
+                displaySuccessAnswer: true, //if true appends the answer to the success message, if false only the successmessage appears
+                displaySuccessScore: true, //set to false if you don't want to display the score on success
+                codeValuePairs: [
+                    {
+                        qrCode:'QliktechBasketBall5Points',
+                        value:'5'
+                    },
+                    {
+                        qrCode:'QliktechBasketBall10Points',
+                        value:'10'
+                    },
+                    {
+                        qrCode:'QliktechBasketBall15Points', //make as many of these are you need
+                        value:'15'    //just follow this convention
+                    },
+                    {
+                        qrCode:'QliktechBasketBall20Points',
+                        value: '20'
+                    }
+                    
+                ]
+                
+            });
+        };
+        //if you don't need a hidden element delete or comment out the code below
+        MX.hiddenElements({
+            pathToHiddenElement: 'mxlib/img/bp6.jpg', // put a string in quotes with the path to the image if you want one                 
+            buttonText: 'show me something' //put a string in quotes
+        })
+    </script>
+</body>
+</html>

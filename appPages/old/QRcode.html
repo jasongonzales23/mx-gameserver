@@ -1,0 +1,70 @@
+<br>
+Location: At the Basketball Courts<br>
+<br>
+<p>Find the staff person by the courts.  You'll need to use your whole team.  Place a team member on
+every lettered circle on the court and shoot a basket from that spot.  You will get two points for 
+every completed basket.</p>
+<br>
+Please scan the QR Code from the staff person here <a href="mx-qrcode://?callback=showQRResult">[Scan]</a><br>
+<br>
+<p>(The scan will return a text string.  It must match the following: QliktechBasketBall5Points, 
+QliktechBasketBall10Points, or QliktechBasketBall15Points.  The points for this challenge would 
+match that score and should then be stored locally.)</p>
+<h1 class="answer" id="2"></h1>
+<script src="jquery-1.6.2.min.js"></script>
+<script src="constants.js"></script>
+<script type="text/javascript">
+function showQRResult(qrCode) {
+    parseCode(qrCode);
+    }
+
+
+    function parseCode(qrCode){
+        val = $.trim(qrCode);
+        val2 = val.replace("QliktechBasketBall", "");
+        val3 = val2.replace("Points", "");
+        $('h1').text("You scored " + val3 + " points!!!");
+
+        //get the team obj stuff ready
+        var qIndex = parseInt($('.answer').attr('id')) -1;
+        var Qs = MX.constants.numberOfQuestions;
+        var answersArr = [];
+        var scoresArr = [];
+        var score = val3;
+
+        //check if any answers
+        var answers  = localStorage.getItem('answers');
+        var scores = localStorage.getItem('scores');
+        //if not make placeholders for all the questions (still nee do test this)
+        if(!answers){
+            for(i=0; i<Qs; i++){
+                answersArr.push(' ');
+            }
+           localStorage.setItem('answers', answersArr);
+        }
+        
+        if(!scores){
+            for(i=0; i<Qs; i++){
+                scoresArr.push(' ');
+            }
+           localStorage.setItem('scores', scoresArr);
+        }
+        
+        //now get the answers
+        var answerStore = localStorage.getItem('answers');
+        //turn the answers into an array
+        answerStore = answerStore.split(',');
+        //set the question answered to the correct value
+        answerStore[qIndex] = val;
+        //store the answers array
+        localStorage.setItem('answers', answerStore);
+        
+        
+        var scoreStore = localStorage.getItem('scores');
+        scoreStore = scoreStore.split(',');
+        scoreStore[qIndex] = score;
+        localStorage.setItem('scores', scoreStore);
+    }
+   
+
+</script>

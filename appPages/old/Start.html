@@ -1,0 +1,88 @@
+<html>
+<h1>Team Setup Screen</h1>
+    <div class="playerInfo">
+        <p>
+        <label>Enter Team Member One (full name)</label>
+            <input type="text" class="player"/>
+        </p>
+    </div>
+    <div class="playerInfo">
+        <p>
+        <label>Enter Team Member One (full name)</label>
+            <input type="text" class="player"/>
+        </p>
+    </div>
+    <div class="playerInfo">
+        <p>
+        <label>Enter Team Member One (full name)</label>
+            <input type="text" class="player"/>
+        </p>
+    </div>
+    <div class="playerInfo">
+        <p>
+        <label>Enter Team Member One (full name)</label>
+            <input type="text" class="player"/>
+        </p>
+    </div>
+    <div class="playerInfo">
+        <p>
+        <label>Enter Team Member One (full name)</label>
+            <input type="text" class="player"/>
+        </p>
+    </div>
+<h2>and</h2>
+
+<label>Enter Team Name</label>
+<input type="text" id="teamName"/>
+
+<button type="button" id="start">Start Game</button>
+
+<script src="jquery-1.6.2.min.js"></script>
+<script>
+$(document).ready(function(){
+
+    
+    $('#start').click(function (){
+        
+        //remove everything from localStorage expect the IP for now
+        // inorder to prevent doubled data
+    
+        for (var i=0; i<localStorage.length; i++){
+            var key = localStorage.key(i);
+            if( key !== "url" ) {
+                localStorage.removeItem(key)
+            }
+        }
+            
+        var teamObj = teamObj || {};
+        teamObj.players = [];
+        teamObj.emails = [];
+        //grab the val of each input, stuff it in an object
+        var players = $('.player');
+        //var emails = document.querySelectorAll('.email');
+        
+        $.each(players, function(){
+            var player = this.value;
+            var email = $(this).parent().next().children('.email').val();
+            if (player ===""){return}
+            teamObj.players.push(player);
+            teamObj.emails.push(email);
+        });
+    
+        //save the team name
+        var teamName = document.querySelector('#teamName');
+        teamObj.teamName = teamName.value;
+        teamID = teamObj.teamName + "_" + Math.random() * Math.pow(10, 17);
+        teamObj.teamID = teamID;
+        
+        //pull it out of the object, I know it sounds absurd but we might need this
+        for(var prop in teamObj) {
+            var val = teamObj[prop];
+            localStorage.setItem(prop, val);
+        }
+    });
+    
+});
+
+</script>
+</html>

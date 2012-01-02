@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Multi Text Challenge</title>
+    <link rel="stylesheet" href="mxlib/css/qt-style.css"/> <!-- change this later -->    
+</head>
+<body id="" class="challenge">
+
+  <div id="container">
+    <header>
+        <!-- This is an optional heading--> 
+        <h1>Should only be one H1 on a page.</h1>
+    </header>
+    <div id="main" role="main" class="clearfix">
+        <!-- main body text goes here -->
+        <p class="challengeText">Challenge text, images, videos, audio, whatever goes here</p>
+        <p>
+            <!-- label is handy but optional -->
+            <label for="textAnswer">Label for input</label>
+            <!-- edit the placeholder here -->
+            <input type="text" name="textAnswer" id="textAnswer" placeholder="placeholder text in input">
+        </p>
+        <!--You should really really edit the text here-->
+        <button class="save">This is a button to submit the answer</button>
+    </div>
+  </div>
+    <div id="hiddenElement"></div>
+    <script src="mxlib/js/jquery.1.7.min.js"></script>
+    <script src="mxlib/js/constants.js"></script>
+    <script src="mxlib/js/mx-lib.js"></script>
+    <script>
+        MX.textChallenge({
+            questionNumber: 4, //this is for IDing the the question 
+            score: '10', //number of points for correct answer, should NOT be an integer
+            correctAnswer: 'poodle',
+            closeAnswers:[
+            // put as many as you want here
+            // must be in quotes, separated by commas
+            //last one in list must not be followed by a comma
+                'pewdle',
+                'poodul',
+                'poodol'
+            ],
+            confirmation: true, //put false if you don't want this 
+            confirmationPrompt: 'Are you sure?' //this needs to be a short message
+        });
+        
+        //if you don't need a hidden element delete or comment out the code below
+        MX.hiddenElements({
+            pathToHiddenElement: 'mxlib/img/bp6.jpg', // put a string in quotes with the path to the image                 
+            buttonText: 'show me something' //put a string in quotes
+        });
+    
+    </script>
+  
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Number Challenge</title>
+    <link rel="stylesheet" href="mxlib/css/qt-style.css"/> <!-- change this later -->    
+</head>
+<body id="" class="challenge">
+
+  <div id="container">
+    <header>
+        <h1>Should only be one H1 on a page.</h1>
+    </header>
+    <div id="main" role="main" class="clearfix">
+        <p class="challengeText">Challenge text, images, videos, audio, whatever goes here</p>
+        <p>
+            <label for="numberAnswer">Label for input</label>
+            <input type="text" name="numberAnswer" id="numberAnswer" placeholder="placeholder text in input">
+        </p>
+        <button class="save">This is a button</button>
+    </div>
+  </div>
+    <div id="hiddenElement"></div>
+    <script src="mxlib/js/jquery.1.7.min.js"></script>
+    <script src="mxlib/js/constants.js"></script>
+    <script src="mxlib/js/mx-lib.js"></script>
+    <script>
+        MX.numberChallenge({
+            questionNumber: 3,
+            score: '10', //number of points for correct answer must be a string
+            correctAnswer: 500, //must be an integer
+            range: 2, //amount plus or minus the answer is allowed to vary, set to zero if you want exact answers only, must be an integer
+            confirmation: true, //put false if you don't want this 
+            confirmationPrompt: 'Are you sure?', //this needs to be a short message
+            alertMessage: 'Enter numbers only please'//the message you want if they enter something other than an integer
+        });
+        //if you don't need a hidden element delete or comment out the code below
+        MX.hiddenElements({
+            pathToHiddenElement: 'mxlib/img/bp6.jpg', // put a string in quotes with the path to the image if you want one                 
+            buttonText: 'show me something' //put a string in quotes
+        });
+    
+    </script>
+  
+
+</body>
+</html>
