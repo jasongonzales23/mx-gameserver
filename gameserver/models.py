@@ -7,8 +7,9 @@ class Team(models.Model):
     name=models.CharField(max_length=255)
     slug=models.SlugField(max_length=50) 
     teamID=models.CharField(max_length=255) #this will be generated on the iPad
+    teamNumber=models.CharField(max_length=30)
     checkIn=models.DateTimeField(default=datetime.now())
-    #score=models.IntegerField(max_length=6) #may not need this, can just calculate based on answer model
+    totalScore=models.IntegerField(max_length=6) #may not need this, can just calculate based on answer model
     
     def __unicode__(self):
         return self.name

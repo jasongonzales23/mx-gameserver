@@ -17,9 +17,20 @@ def home(request):
 @login_required
 def gameResults(request):
     team_list = Team.objects.all()
+    firstCheckIn = Team.objects.order_by('checkIn')[0]
+    lastCheckIn = Team.objects.order_by('-checkIn')[0]
+    highestScoreTeam = Team.objects.order_by('totalScore')[0]
+    lowestScoreTeam = Team.objects.order_by('-totalScore')[0]
+    numberOfTeams = Team.objects.count()
     
     return render_to_response('game-results.html',
-        {'team_list': team_list},
+        {'team_list': team_list,
+         'firstCheckIn':firstCheckIn,
+         'lastCheckIn':lastCheckIn,
+         'highestScoreTeam':highestScoreTeam,
+         'lowestScoreTeam': lowestScoreTeam,
+         'numberOfTeams': numberOfTeams
+        },
         context_instance=RequestContext(request)
     )
 
@@ -42,6 +53,7 @@ def teamData(request): #include team ID later?
     #q = request.GET
     #q.lists()
     
+    teamNumber = request.GET.get('teamNumber')
     teamName = request.GET.get('teamName')
     teamID = request.GET.get('teamID')
     slug = slugify(teamName) #need to write a way to create this
@@ -50,16 +62,34 @@ def teamData(request): #include team ID later?
     answers = request.GET.get('answers')
     scores = request.GET.get('scores')
     
-    #save the team info first
+    #save the team info
     def _save_team(teamName, teamID):
-        newData = Team(name=teamName, slug=slug, teamID=teamID)
+        newData = Team(name=teamName, slug=slug, teamID=teamID, teamNumber=teamNumber, totalScore=0)
         return newData
     
     newTeam = _save_team(teamName, teamID)
     newTeam.save()
     
     #get unique obj for current team
-    team = Team.objects.get(name=teamName)
+    team = Team.objects.get(name=teamName)    #save answers given
+    answer = answers.split(',')
+    score = scores.split(',')
+    count = 0
+    total = 0
+    
+    for a, s in zip(answer, score):
+        count += 1
+        newData = Answer(team=team, question=count, answerGiven=a, pointsAwarded=s)
+        newData.save()
+        try:
+            sInt = int(s)
+            total += sInt
+        except ValueError:
+            total += 0
+
+    #save totals    
+    team.totalScore = total
+    team.save()
     
     #save players
     name = players.split(',')
@@ -69,17 +99,6 @@ def teamData(request): #include team ID later?
     for n, e in zip(name, email):
         newData = Player(name=n, email=e, team=team)
         newData.save()
-    
-    #save answers given
-    answer = answers.split(',')
-    score = scores.split(',')
-    count = 0
-    
-    for a, s in zip(answer, score):
-        count += 1
-        newData = Answer(team=team, question=count, answerGiven=a, pointsAwarded=s)
-        newData.save()
-    #save scores
     
     #respond to the iPads
     response = HttpResponse('{success:0}')

@@ -2,7 +2,7 @@ from django.contrib import admin
 from gameserver.models import Team, Player, Answer
     
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'teamID', 'checkIn') #, 'score'
+    list_display = ('name', 'teamNumber', 'teamID', 'checkIn') #, 'score'
     
 class PlayerAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'team')

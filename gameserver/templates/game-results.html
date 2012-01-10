@@ -18,23 +18,24 @@
 	    <tbody>
 		<tr>
 		    <th>First Check In</th>
-		    <td>{{ team.teamID }}</td>
+		    <td>{{ firstCheckIn.name }}: {{ firstCheckIn.checkIn }}</td>
+		    
 		</tr>
 		<tr>
 		    <th>Last Check in</th>
-		    <td>{{ team.checkIn }}</td>
+		    <td>{{ lastCheckIn.name }}: {{ lastCheckIn.checkIn }}</td>
 		</tr>
 		<tr>
 		    <th>Highest Scoring Team</th>
-		    <td>{{ team.score }}</td>
+		    <td>{{ highestScoreTeam.name}}</td>
 		</tr>
 		<tr>
 		    <th>Lowest Scoring Team</th>
-		    <td>{{ team.score }}</td>
+		    <td>{{ lowestScoreTeam.name }}</td>
 		</tr>
 		<tr>
 		    <th>Number of Teams</th>
-		    <td>coming soon</td>
+		    <td>{{ numberOfTeams }}</td>
 		</tr><tr>
 		    <th>Number of Images</th>
 		    <td>coming soon</td>
@@ -54,7 +55,7 @@
 		{% for team in team_list%}
 		<tr>
 		    <td>{{ team.name }}</td>
-		    <td>{{ team.score }}</td>
+		    <td>{{ team.totalScore }}</td>
 		    <td><a href="{{ team.slug }}">More info</a></td>
 		</tr>
 		{% endfor %}

@@ -268,7 +268,7 @@ header, .answers h2, .participatingTeams h2 {
 }
 
 .teamInfo, .gameOverview {
-    width:370px;
+    width:450px;
     margin: 40px 0 0 15px;
     float:left;
 }
