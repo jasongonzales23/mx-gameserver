@@ -4,13 +4,16 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Team(models.Model):
+    teamID=models.CharField(max_length=255, unique=True) #this will be generated on the iPad
     name=models.CharField(max_length=255)
-    slug=models.SlugField(max_length=50) 
-    teamID=models.CharField(max_length=255) #this will be generated on the iPad
     teamNumber=models.CharField(max_length=30)
+    slug=models.SlugField(max_length=50) 
     checkIn=models.DateTimeField(default=datetime.now())
     totalScore=models.IntegerField(max_length=6) #may not need this, can just calculate based on answer model
     
+    #class Meta:
+    #    unique_together = (("teamID", "name", "slug", "teamNumber", "checkIn", "totalScore"),)
+
     def __unicode__(self):
         return self.name
 
@@ -36,6 +39,7 @@ class Answer(models.Model):
     question=models.IntegerField(max_length=5)
     answerGiven=models.TextField(max_length=255)
     pointsAwarded=models.CharField(max_length=5)
+    
     
     def __unicode__(self):
         return self.answerGiven

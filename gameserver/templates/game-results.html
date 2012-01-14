@@ -49,12 +49,14 @@
 	    <tbody>
 		<thead>
 		    <th>Team</th>
+		    <th>Team #</th>
 		    <th>Points</th>
 		    <th></th>
 		</thead>
 		{% for team in team_list%}
 		<tr>
 		    <td>{{ team.name }}</td>
+		    <td>{{ team.teamNumber }}</td>
 		    <td>{{ team.totalScore }}</td>
 		    <td><a href="{{ team.slug }}">More info</a></td>
 		</tr>

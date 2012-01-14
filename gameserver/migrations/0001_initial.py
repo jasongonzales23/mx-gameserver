@@ -11,10 +11,12 @@ class Migration(SchemaMigration):
         # Adding model 'Team'
         db.create_table('gameserver_team', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('teamID', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('teamNumber', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50, db_index=True)),
-            ('teamID', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('checkIn', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2011, 12, 4, 17, 36, 48, 308850))),
+            ('checkIn', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2012, 1, 13, 10, 28, 28, 732486))),
+            ('totalScore', self.gf('django.db.models.fields.IntegerField')(max_length=6)),
         ))
         db.send_create_signal('gameserver', ['Team'])
 
@@ -22,7 +24,7 @@ class Migration(SchemaMigration):
         db.create_table('gameserver_player', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=255)),
+            ('email', self.gf('django.db.models.fields.EmailField')(max_length=255, blank=True)),
             ('team', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['gameserver.Team'])),
         ))
         db.send_create_signal('gameserver', ['Player'])
@@ -33,7 +35,7 @@ class Migration(SchemaMigration):
             ('team', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['gameserver.Team'])),
             ('question', self.gf('django.db.models.fields.IntegerField')(max_length=5)),
             ('answerGiven', self.gf('django.db.models.fields.TextField')(max_length=255)),
-            ('pointsAwarded', self.gf('django.db.models.fields.IntegerField')(max_length=5)),
+            ('pointsAwarded', self.gf('django.db.models.fields.CharField')(max_length=5)),
         ))
         db.send_create_signal('gameserver', ['Answer'])
 
@@ -55,24 +57,26 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Answer'},
             'answerGiven': ('django.db.models.fields.TextField', [], {'max_length': '255'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'pointsAwarded': ('django.db.models.fields.IntegerField', [], {'max_length': '5'}),
+            'pointsAwarded': ('django.db.models.fields.CharField', [], {'max_length': '5'}),
             'question': ('django.db.models.fields.IntegerField', [], {'max_length': '5'}),
             'team': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['gameserver.Team']"})
         },
         'gameserver.player': {
             'Meta': {'object_name': 'Player'},
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '255'}),
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '255', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'team': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['gameserver.Team']"})
         },
         'gameserver.team': {
             'Meta': {'object_name': 'Team'},
-            'checkIn': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2011, 12, 4, 17, 36, 48, 308850)'}),
+            'checkIn': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2012, 1, 13, 10, 28, 28, 732486)'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'db_index': 'True'}),
-            'teamID': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+            'teamID': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
+            'teamNumber': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
+            'totalScore': ('django.db.models.fields.IntegerField', [], {'max_length': '6'})
         }
     }
 

@@ -14,7 +14,7 @@
 </div>
 <div class="row">
     <div class="teamInfo">
-	<h2>Team {{ team.name }}</h2>
+	<h2>Name: {{ team.name }}</h2>
 	<table>
 	    <tbody>
 		<tr>
@@ -40,7 +40,7 @@
 	<ul>
 	    {% for player in player_list %}
 	    <li> {{ player.name }}</li>
-	    <li class="email"><a href="mailto:{{ player.email }}">{{ player.email }}</a></li>
+	    <!--<li class="email"><a href="mailto:{{ player.email }}">{{ player.email }}</a></li>-->
 	    {% endfor %}
 	</ul>
     </div>
